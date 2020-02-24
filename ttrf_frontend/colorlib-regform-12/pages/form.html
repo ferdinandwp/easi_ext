@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Technology Transfer Request form</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="../fonts/material-icon/css/material-design-iconic-font.min.css">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+    <div class="main">
+
+        <div class="container">
+            <form action="http://localhost:5000/add" method="POST" class="TTR-form" target="_blank" id="TTR-form">
+                <h2>Technology Transfer Request form</h2>
+                <div class="form-group-1">
+                    <h3>Section 1: Basic information</h3>
+                    <h4>1.1 Technology Owner(s)</h4>
+                    <input type="text" name="tech_owner" id="tech_owner" placeholder="Person or company who owns the technology" required />
+                    <h4>1.2 Owner contact info</h4>
+                    <input type="text" name="owner_contact" id="owner_contact" placeholder="Email or phone of designated person above" required />
+                    <h4>1.3 Data recipient</h4>
+                    <input type="text" name="data_recipient" id="data_recipient" placeholder="Person/company name" required />
+                    <h4>1.4 Recipient location</h4>
+                    <input type="text" name="recipient_location" id="recipient_location" placeholder="Country" required />
+                    <h4>1.5 Final destination?</h4>
+                    <select name="is_final_dst" id="is_final_dst" required>
+                        <option value="">Choose one</option>
+                        <option value="True">Yes</option>
+                        <option value="False">No</option>
+                    </select>
+                    <h4>1.6 If no, specify for 1.5</h4>
+                    <input type="text" name="final_dst" id="final_dst" placeholder="Final desination country and end user" required />
+                    <h4>1.7 Export requester</h4>
+                    <input type="text" name="export_requester" id="export_requester" placeholder="Person requesting this transfer" required />
+                    <h4>1.8 Date requested</h4>
+                    <input type="date" name="date_req" id="date_req" required>
+                    <h4>1.9 Method of export</h4>
+                    <input type="text" name="method_export" id="method_export" required />
+                    <h4>1.10 Purpose of export</h4>
+                    <input type="text" name="purpose_export" id="purpose_export" placeholder="Why does the data/technology need to be exported?" required />
+                    <h4>1.11 IP owner(s)</h4>
+                    <input type="text" name="ip_owner" id="ip_owner" placeholder="Who owns this intellectual Property?" required />
+                </div>
+                <div class="form-group-1">
+                    <h3>Section 2: Description of technical information</h3>
+                    <div class="select-list">
+                        <h4>2.1 Describe the technology that is requested to be transferred. Include all part, drawing, and other reference numbers</h4>
+                        <textarea name="tech_describe" id="tech_describe" class="boxsizingBorder" required></textarea>
+                    </div>
+                </div>
+                <div class="form-group-1">
+                    <h3>Section 3: Export Classifications</h3>
+                    <h3>Please enter all known classifications of the most sensitive technologies requested to be exported. Mark N/A if not applicable.</h3>
+                    <h4>3.1 ECL</h4>
+                    <input type="text" name="ecl" id="ecl" placeholder="Export Control List" required />
+                    <h4>3.2 ECCN</h4>
+                    <input type="text" name="eccn" id="eccn" placeholder="Export Control Classification Number" required />
+                    <h4>3.3 USML</h4>
+                    <input type="text" name="usml" id="usml" placeholder="United States Munitions List" required />
+                    <h4>3.4 CG</h4>
+                    <input type="text" name="cg" id="cg" placeholder="Controlled Goods" required />
+                </div>
+                <div class="form-group-1">
+                    <h3>Section 4: Approval: Export Control Subject Matter Expert (SME)</h3>
+                    <h4>4.1 SME Decision</h4>
+                    <select name="sme_decision" id="sme_decision" required>
+                      <option value="">Choose one</option>
+                      <option value="True">Approved</option>
+                      <option value="False">Rejected</option>
+                    </select>
+                    <h4>4.2 Reason, if rejected in 4.1</h4>
+                    <input type="text" name="sme_reason" id="sme_reason" required />
+                    <h4>4.3 Export Control SME Name</h4>
+                    <input type="text" name="sme_name" id="sme_name" required />
+                    <h4>4.4 Export Control SME Signature</h4>
+                    <input type="text" name="sme_signature" id="sme_signature" required />
+                    <h4>4.5 Decision date</h4>
+                    <input type="date" name="sme_decision_date" id="sme_decision_date" required>
+                </div>
+                <div class="form-group-1">
+                    <h3>Section 5: Approval: Export Control Manager</h3>
+                    <h4>5.1 Export Control Manager Decision</h4>
+                    <select id="ecm_decision" name="ecm_decision" required>
+                      <option value="">Choose one</option>
+                      <option value="True">Approved</option>
+                      <option value="False">Rejected</option>
+                    </select>
+                    <h4>5.2 Reason, if rejected in 5.1</h4>
+                    <input type="text" name="ecm_reason" id="ecm_reason" required />
+                    <h4>5.3 Export Control Manager Name</h4>
+                    <input type="text" name="ecm_name" id="ecm_name" required />
+                    <h4>5.4 EC Manager Signature</h4>
+                    <input type="text" name="ecm_signature" id="ecm_signature" required />
+                    <h4>5.5 Decision date</h4>
+                    <input type="date" name="ecm_decision_date" id="ecm_decision_date" required/>
+                    <h4>5.6 License Required?</h4>
+                    <select name="ecm_license_req" id="ecm_license_req" required>
+                      <option value="">Choose one</option>
+                      <option value="True">Yes</option>
+                      <option value="False">No</option>
+                    </select>
+                    <h4>5.7 If yes, Licence No.</h4>
+                    <input type="text" name="ecm_license_no" id="ecm_license_no" required />
+                    <h4>5.8 If yes, Expiry Date</h4>
+                    <input type="date" name="ecm_license_expiry_date" id="ecm_license_expiry_date" required />
+                </div>
+                <div class="form-group-2">
+                    <h3>Section 6: Export Record/Details</h3>
+                    <h4>6.1 Date of initial export</h4>
+                    <input type="date" name="date_ini_export" id="date_ini_export" required>
+                    <h4>6.2 Recipient (if different from 1.3)</h4>
+                    <input type="text" name="export_recipient" id="export_recipient" placeholder="Person/company name" required />
+                    <h4>6.3 Method of transfer</h4>
+                    <input type="text" name="method_transfer" id="method_transfer" required />
+                    <h4>6.5 Exported By</h4>
+                    <input type="text" name="exported_by" id="exported_by" placeholder="Person/company name" required>
+                    <h4>6.6 Export Completed?</h4>
+                    <select name="export_is_completed" id="export_is_completed" required>
+                      <option value="">Choose one</option>
+                      <option value="True">Yes</option>
+                      <option value="False">No</option>
+                    </select>
+                    <h4>6.7 Record Number</h4>
+                    <input type="number" max="999999999" name="record_num" id="record_num" placeholder="2099CCCCC" oninput="this.value=this.value.slice(0,this.maxLength)" maxlength="9" required>
+                </div>
+                <div id="button_right">
+                    <input class="submit" type="submit" value="Submit">
+                </div>
+                <div id="button_left">
+                    <input class="submit" type="button" value="Back" onclick="location.href='../index.html'" >
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+    <!-- JS -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="js/main.js"></script>
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>
