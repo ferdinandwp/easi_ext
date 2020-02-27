@@ -9,6 +9,11 @@
     <!-- Font Icon -->
     <link rel="stylesheet" href="../fonts/material-icon/css/material-design-iconic-font.min.css">
 
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/popper.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+
     <!-- Main css -->
     <link rel="stylesheet" href="../css/style.css">
 </head>
@@ -30,13 +35,13 @@
                     <h4>1.4 Recipient location</h4>
                     <input type="text" name="recipient_location" id="recipient_location" placeholder="Country" required />
                     <h4>1.5 Final destination?</h4>
-                    <select name="is_final_dst" id="is_final_dst" required>
+                    <select name="is_final_dst" id="is_final_dst" onchange="disableInputBox(this, 'False', final_dst.id)" required>
                         <option value="">Choose one</option>
                         <option value="True">Yes</option>
                         <option value="False">No</option>
                     </select>
                     <h4>1.6 If no, specify for 1.5</h4>
-                    <input type="text" name="final_dst" id="final_dst" placeholder="Final desination country and end user" required />
+                    <input type="text" name="final_dst" id="final_dst" disabled="disabled" />
                     <h4>1.7 Export requester</h4>
                     <input type="text" name="export_requester" id="export_requester" placeholder="Person requesting this transfer" required />
                     <h4>1.8 Date requested</h4>
@@ -70,48 +75,48 @@
                 <div class="form-group-1">
                     <h3>Section 4: Approval: Export Control Subject Matter Expert (SME)</h3>
                     <h4>4.1 SME Decision</h4>
-                    <select name="sme_decision" id="sme_decision" required>
+                    <select name="sme_decision" id="sme_decision" onchange="disableInputBox(this, 'False', sme_reason.id)" required>
                       <option value="">Choose one</option>
                       <option value="True">Approved</option>
                       <option value="False">Rejected</option>
                     </select>
                     <h4>4.2 Reason, if rejected in 4.1</h4>
-                    <input type="text" name="sme_reason" id="sme_reason" required />
+                    <input type="text" name="sme_reason" id="sme_reason" disabled="disabled" />
                     <h4>4.3 Export Control SME Name</h4>
                     <input type="text" name="sme_name" id="sme_name" required />
                     <h4>4.4 Export Control SME Signature</h4>
-                    <input type="text" name="sme_signature" id="sme_signature" required />
+                    <input type="text" name="sme_signature" id="sme_signature" disabled="disabled" class="signature" />
                     <h4>4.5 Decision date</h4>
                     <input type="date" name="sme_decision_date" id="sme_decision_date" required>
                 </div>
                 <div class="form-group-1">
                     <h3>Section 5: Approval: Export Control Manager</h3>
                     <h4>5.1 Export Control Manager Decision</h4>
-                    <select id="ecm_decision" name="ecm_decision" required>
+                    <select id="ecm_decision" name="ecm_decision" onchange="disableInputBox(this, 'False', ecm_reason.id)" required>
                       <option value="">Choose one</option>
                       <option value="True">Approved</option>
                       <option value="False">Rejected</option>
                     </select>
                     <h4>5.2 Reason, if rejected in 5.1</h4>
-                    <input type="text" name="ecm_reason" id="ecm_reason" required />
+                    <input type="text" name="ecm_reason" id="ecm_reason" disabled="disabled" />
                     <h4>5.3 Export Control Manager Name</h4>
                     <input type="text" name="ecm_name" id="ecm_name" required />
                     <h4>5.4 EC Manager Signature</h4>
-                    <input type="text" name="ecm_signature" id="ecm_signature" required />
+                    <input type="text" name="ecm_signature" id="ecm_signature" disabled="disabled" class="signature" />
                     <h4>5.5 Decision date</h4>
                     <input type="date" name="ecm_decision_date" id="ecm_decision_date" required/>
                     <h4>5.6 License Required?</h4>
-                    <select name="ecm_license_req" id="ecm_license_req" required>
+                    <select name="ecm_license_req" id="ecm_license_req" onchange="disableInputBox(this, 'True', ecm_license_no.id, ecm_license_expiry_date.id)" required>
                       <option value="">Choose one</option>
                       <option value="True">Yes</option>
                       <option value="False">No</option>
                     </select>
                     <h4>5.7 If yes, Licence No.</h4>
-                    <input type="text" name="ecm_license_no" id="ecm_license_no" required />
+                    <input type="text" name="ecm_license_no" id="ecm_license_no" disabled="disabled" />
                     <h4>5.8 If yes, Expiry Date</h4>
-                    <input type="date" name="ecm_license_expiry_date" id="ecm_license_expiry_date" required />
+                    <input type="date" name="ecm_license_expiry_date" id="ecm_license_expiry_date" disabled="disabled" />
                 </div>
-                <div class="form-group-2">
+                <div class="form-group-1">
                     <h3>Section 6: Export Record/Details</h3>
                     <h4>6.1 Date of initial export</h4>
                     <input type="date" name="date_ini_export" id="date_ini_export" required>
@@ -130,19 +135,57 @@
                     <h4>6.7 Record Number</h4>
                     <input type="number" max="999999999" name="record_num" id="record_num" placeholder="2099CCCCC" oninput="this.value=this.value.slice(0,this.maxLength)" maxlength="9" required>
                 </div>
-                <div id="button_right">
-                    <input class="submit" type="submit" value="Submit">
+            </form>
+            <form method="POST" action="http://localhost:5000/upload/" class="attachment-form" target="_blank" enctype="multipart/form-data" id="upload-file">
+                <div class="form-group-2">
+                    <h3>Section 7: Attachement</h3>
+                        <div class="custom-file mb-3">
+                            <input type="file" class="custom-file-input" id="customFile" name="file" multiple>
+                            <label class="custom-file-label" for="customFile">Choose file</label>
+                            <input class="upload-button" type="submit" value="Upload" form="upload-file">
+                        </div>
                 </div>
-                <div id="button_left">
-                    <input class="submit" type="button" value="Back" onclick="location.href='../index.html'" >
-                </div>
+                <input class="submit" type="submit" value="Submit" form="TTR-form">
+                <input class="submit" type="button" value="Back" onclick="location.href='../index.html'" >
             </form>
         </div>
-
     </div>
 
     <!-- JS -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="js/main.js"></script>
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script type="text/javascript">
+        function disableInputBox(is_final_dst, bool_disable, ...element_ids){
+            var selectedValue = is_final_dst.options[is_final_dst.selectedIndex].value;
+            var txtOther;
+            for(element_id of element_ids)
+            {
+                txtOther = document.getElementById(element_id);
+                if (selectedValue == bool_disable)
+                {
+                    txtOther.disabled = false;
+                    txtOther.placeholder = "Final desination country and end user";
+                }
+                else
+                {
+                    txtOther.disabled = true;
+                    txtOther.placeholder = "";
+                    txtOther.value = "";
+                }
+                if (!txtOther.disabled)
+                {
+                    txtOther.focus();
+                }
+            }
+            
+        }
+    </script>
+    <script>
+        // Add the following code if you want the name of the file appear on select
+        $(".custom-file-input").on("change", function() {
+          var fileName = $(this).val().split("\\").pop();
+          $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+        </script>
 </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 </html>

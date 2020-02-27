@@ -1,10 +1,13 @@
-from app import app
+import os
+from app import app, UPLOAD_FOLDER
 from flask import jsonify
-from flask import flash, request
+import urllib.request
+from flask import flash, request, redirect
 from db_config import DB_CONN_STR
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from schema import ttrf
+from werkzeug.utils import secure_filename
 
 # Add user
 @app.route('/add', methods=['POST'])
@@ -26,6 +29,48 @@ def add_user():
 	except Exception as e:
 		print(e)
 
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+
+def allowed_file(filename):
+	return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+@app.route('/upload/', methods=['POST'])
+def upload_file():
+	try:
+		if request.method == 'POST':
+			# check if the post request has the file part
+			if 'file' not in request.files:
+				error_message = 'Error: No file part'
+				print(error_message)
+				resp = jsonify(error_message)
+				resp.status_code = 200
+				return resp
+			file = request.files['file']
+			if file.filename == '':
+				error_message = 'Error: No file selected for uploading'
+				print(error_message)
+				resp = jsonify(error_message)
+				resp.status_code = 200
+				return resp
+			if file and allowed_file(file.filename):
+				success_message = "Successfully uploaded " + file.filename + " to " + UPLOAD_FOLDER
+				print(success_message)
+				filename = secure_filename(file.filename)
+				file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+				resp = jsonify(success_message)
+				resp.status_code = 200
+				return resp
+			else:
+				error_message = 'Error: Allowed file types are txt, pdf, png, jpg, jpeg, gif'
+				print(error_message)
+				resp = jsonify(error_message)
+				resp.status_code = 200
+				return resp
+	except Exception as e:
+		print(e)
+		return request_entity_too_large()
+
+'''
 # Display all users
 @app.route('/describe')
 def describe_users():
@@ -53,7 +98,7 @@ def users():
 	except Exception as e:
 		print(e)
 
-'''
+
 # display given user
 @app.route('/user/<int:id>')
 def user(id):
@@ -123,6 +168,16 @@ def not_found(error=None):
     resp = jsonify(message)
     resp.status_code = 404
 
+    return resp
+
+@app.errorhandler(413)
+def request_entity_too_large(error=None):
+    message = {
+        'status': 413,
+        'message': 'Request entity too large: ' + request.url,
+    }
+    resp = jsonify(message)
+    resp.status_code = 413
     return resp
 
 if __name__ == "__main__":
