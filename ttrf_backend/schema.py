@@ -1,5 +1,5 @@
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String, DateTime, Boolean
+from sqlalchemy import Column, Integer, String, DateTime, Boolean, BLOB
 from datetime import datetime
 
 Base = declarative_base()
@@ -28,12 +28,10 @@ class ttrf(Base):
     sme_decision = Column(Boolean)
     sme_reason = Column(String)
     sme_name = Column(String)
-    sme_signature = Column(String)
     sme_decision_date = Column(DateTime)
     ecm_decision = Column(Boolean)
     ecm_reason = Column(String)
     ecm_name = Column(String)
-    ecm_signature = Column(String)
     ecm_decision_date = Column(DateTime)
     ecm_license_req = Column(Boolean)
     ecm_license_no = Column(String)
@@ -44,6 +42,7 @@ class ttrf(Base):
     exported_by = Column(String)
     export_is_completed = Column(Boolean)
     record_num = Column(Integer)
+    uploaded_file = Column(BLOB)
     
     def __str__(self):
         return "tech_owner: %s, owner_contact: %s, data_recipient: %s, recipient_location: %s, is_final_dst: %s, final_dst: %s," \
@@ -51,13 +50,13 @@ class ttrf(Base):
             "eccn: %s, usml: %s, cg: %s, sme_decision: %s, sme_reason: %s, sme_name: %s, sme_signature: %s, sme_decision_date: %s," \
             "ecm_decision: %s, ecm_reason: %s, ecm_name: %s, ecm_signature: %s, ecm_decision_date: %s, ecm_license_req: %s, ecm_license_no: %s," \
             "ecm_license_expiry_date: %s, date_ini_export: %s, export_recipient: %s, method_transfer: %s, exported_by: %s, export_is_completed: %s," \
-            "record_num: %s" % \
+            "record_num: %s, uploaded_file: %s" % \
         (self.tech_owner, self.owner_contact, self.data_recipient, self.recipient_location, self.is_final_dst, self.final_dst, \
         self.export_requester, self.date_req, self.method_export, self.purpose_export, self.ip_owner, self.tech_describe, self.ecl, \
         self.eccn, self.usml, self.cg, self.sme_decision, self.sme_reason, self.sme_name, self.sme_signature, self.sme_decision_date, \
         self.ecm_decision, self.ecm_reason, self.ecm_name, self.ecm_signature, self.ecm_decision_date, self.ecm_license_req, self.ecm_license_no, \
         self.ecm_license_expiry_date, self.date_ini_export, self.export_recipient, self.method_transfer, self.exported_by, self.export_is_completed, \
-        self.record_num)
+        self.record_num, self.uploaded_file)
 
     def serialize(self):
         return {
@@ -95,7 +94,8 @@ class ttrf(Base):
             'method_transfer' : self.method_transfer,
             'exported_by' : self.exported_by,
             'export_is_completed' : self.export_is_completed,
-            'record_num' : self.record_num
+            'record_num' : self.record_num,
+            'uploaded_file' : self.uploaded_file
         }
 
     def StringToSqlType(self):
