@@ -1,9 +1,14 @@
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String, DateTime, Boolean, BLOB
 from datetime import datetime
+from flask import request
 
 Base = declarative_base()
 
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+
+def allowed_file(filename):
+	return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 class ttrf(Base):
     __tablename__ = 'ttrf'
@@ -47,14 +52,14 @@ class ttrf(Base):
     def __str__(self):
         return "tech_owner: %s, owner_contact: %s, data_recipient: %s, recipient_location: %s, is_final_dst: %s, final_dst: %s," \
             "export_requester: %s, date_req: %s, method_export: %s, purpose_export: %s, ip_owner: %s, tech_describe: %s, ecl: %s," \
-            "eccn: %s, usml: %s, cg: %s, sme_decision: %s, sme_reason: %s, sme_name: %s, sme_signature: %s, sme_decision_date: %s," \
-            "ecm_decision: %s, ecm_reason: %s, ecm_name: %s, ecm_signature: %s, ecm_decision_date: %s, ecm_license_req: %s, ecm_license_no: %s," \
+            "eccn: %s, usml: %s, cg: %s, sme_decision: %s, sme_reason: %s, sme_name: %s, sme_decision_date: %s," \
+            "ecm_decision: %s, ecm_reason: %s, ecm_name: %s, ecm_decision_date: %s, ecm_license_req: %s, ecm_license_no: %s," \
             "ecm_license_expiry_date: %s, date_ini_export: %s, export_recipient: %s, method_transfer: %s, exported_by: %s, export_is_completed: %s," \
             "record_num: %s, uploaded_file: %s" % \
         (self.tech_owner, self.owner_contact, self.data_recipient, self.recipient_location, self.is_final_dst, self.final_dst, \
         self.export_requester, self.date_req, self.method_export, self.purpose_export, self.ip_owner, self.tech_describe, self.ecl, \
-        self.eccn, self.usml, self.cg, self.sme_decision, self.sme_reason, self.sme_name, self.sme_signature, self.sme_decision_date, \
-        self.ecm_decision, self.ecm_reason, self.ecm_name, self.ecm_signature, self.ecm_decision_date, self.ecm_license_req, self.ecm_license_no, \
+        self.eccn, self.usml, self.cg, self.sme_decision, self.sme_reason, self.sme_name, self.sme_decision_date, \
+        self.ecm_decision, self.ecm_reason, self.ecm_name, self.ecm_decision_date, self.ecm_license_req, self.ecm_license_no, \
         self.ecm_license_expiry_date, self.date_ini_export, self.export_recipient, self.method_transfer, self.exported_by, self.export_is_completed, \
         self.record_num, self.uploaded_file)
 
@@ -79,12 +84,10 @@ class ttrf(Base):
             'sme_decision' : self.sme_decision,
             'sme_reason' : self.sme_reason,
             'sme_name' : self.sme_name,
-            'sme_signature' : self.sme_signature,
             'sme_decision_date' : self.sme_decision_date,
             'ecm_decision' : self.ecm_decision,
             'ecm_reason' : self.ecm_reason,
             'ecm_name' : self.ecm_name,
-            'ecm_signature' : self.ecm_signature,
             'ecm_decision_date' : self.ecm_decision_date,
             'ecm_license_req' : self.ecm_license_req,
             'ecm_license_no' : self.ecm_license_no,
@@ -99,16 +102,32 @@ class ttrf(Base):
         }
 
     def StringToSqlType(self):
+        result = True
+
         self.is_final_dst = eval(self.is_final_dst)
         self.sme_decision = eval(self.sme_decision)
         self.ecm_decision = eval(self.ecm_decision)
         self.ecm_license_req = eval(self.ecm_license_req)
         self.export_is_completed = eval(self.export_is_completed)
 
-        self.date_req = datetime.strptime(self.date_req, '%Y-%m-%d')
-        self.sme_decision_date = datetime.strptime(self.sme_decision_date, '%Y-%m-%d')
-        self.ecm_decision_date = datetime.strptime(self.ecm_decision_date, '%Y-%m-%d')
-        self.ecm_license_expiry_date = datetime.strptime(self.ecm_license_expiry_date, '%Y-%m-%d')
-        self.date_ini_export = datetime.strptime(self.date_ini_export, '%Y-%m-%d')
+        if self.date_req != None:
+            self.date_req = datetime.strptime(self.date_req, '%Y-%m-%d')
+        if self.sme_decision_date != None:
+            self.sme_decision_date = datetime.strptime(self.sme_decision_date, '%Y-%m-%d')
+        if self.ecm_decision_date != None:
+            self.ecm_decision_date = datetime.strptime(self.ecm_decision_date, '%Y-%m-%d')
+        if self.ecm_license_expiry_date != None:
+            self.ecm_license_expiry_date = datetime.strptime(self.ecm_license_expiry_date, '%Y-%m-%d')
+        if self.date_ini_export != None:
+            self.date_ini_export = datetime.strptime(self.date_ini_export, '%Y-%m-%d')
 
         self.record_num = int(self.record_num)
+
+        file = request.files['uploaded_file']
+        if file:
+            if allowed_file(file.filename):
+                self.uploaded_file = file.read()
+            else:
+                result = False
+
+        return result

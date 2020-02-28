@@ -22,7 +22,7 @@
     <div class="main">
 
         <div class="container">
-            <form action="http://localhost:5000/add" method="POST" class="TTR-form" target="_blank" id="TTR-form">
+            <form action="http://localhost:5000/add" method="POST" class="TTR-form" target="_blank" id="TTR-form" enctype="multipart/form-data">
                 <h2>Technology Transfer Request form</h2>
                 <div class="form-group-1">
                     <h3>Section 1: Basic information</h3>
@@ -135,18 +135,16 @@
                     <h4>6.7 Record Number</h4>
                     <input type="number" max="999999999" name="record_num" id="record_num" placeholder="2099CCCCC" oninput="this.value=this.value.slice(0,this.maxLength)" maxlength="9" required>
                 </div>
-            </form>
-            <form method="POST" action="http://localhost:5000/upload/" class="attachment-form" target="_blank" enctype="multipart/form-data" id="upload-file">
                 <div class="form-group-2">
                     <h3>Section 7: Attachement</h3>
-                        <div class="custom-file mb-3">
-                            <input type="file" class="custom-file-input" id="customFile" name="file" multiple>
-                            <label class="custom-file-label" for="customFile">Choose file</label>
-                            <input class="upload-button" type="submit" value="Upload" form="upload-file">
-                        </div>
+                    <div class="custom-file mb-3">
+                        <input type="file" class="custom-file-input" id="uploaded_file" name="uploaded_file">
+                        <label class="custom-file-label" for="customFile">Choose file</label>
+                    </div>
                 </div>
-                <input class="submit" type="submit" value="Submit" form="TTR-form">
-                <input class="submit" type="button" value="Back" onclick="location.href='../index.html'" >
+                <input class="form-button" type="submit" value="Submit" form="TTR-form">
+                <button class="form-button" type="button" onclick="printPage()">Print/Save</button>
+                <input class="form-button" type="button" value="Back" onclick="location.href='../index.html'" >
             </form>
         </div>
     </div>
@@ -186,6 +184,11 @@
           var fileName = $(this).val().split("\\").pop();
           $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
         });
-        </script>
+    </script>
+    <script>
+        function printPage() {
+          window.print();
+        }
+    </script>
 </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 </html>

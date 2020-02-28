@@ -43,12 +43,10 @@ CREATE TABLE `ttrf` (
   `sme_decision` tinyint(1) DEFAULT NULL,
   `sme_reason` varchar(100) DEFAULT NULL,
   `sme_name` varchar(100) DEFAULT NULL,
-  `sme_signature` varchar(100) DEFAULT NULL,
   `sme_decision_date` date DEFAULT NULL,
   `ecm_decision` tinyint(1) DEFAULT NULL,
   `ecm_reason` varchar(100) DEFAULT NULL,
   `ecm_name` varchar(100) DEFAULT NULL,
-  `ecm_signature` varchar(100) DEFAULT NULL,
   `ecm_decision_date` date DEFAULT NULL,
   `ecm_license_req` tinyint(1) DEFAULT NULL,
   `ecm_license_no` varchar(100) DEFAULT NULL,
@@ -59,8 +57,9 @@ CREATE TABLE `ttrf` (
   `exported_by` varchar(100) DEFAULT NULL,
   `export_is_completed` tinyint(1) DEFAULT NULL,
   `record_num` int DEFAULT NULL,
+  `uploaded_file` mediumblob,
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -69,7 +68,6 @@ CREATE TABLE `ttrf` (
 
 LOCK TABLES `ttrf` WRITE;
 /*!40000 ALTER TABLE `ttrf` DISABLE KEYS */;
-INSERT INTO `ttrf` VALUES (1,'Gary','438-980-9839','Josh','Montreal',0,'London','Mo','2020-01-18','train','design','CAT',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(15,'jinbo','sadfds','wfewe','erfwerfw',1,'ewfewffqw','ewqfwefew','1111-11-01','dsafdsfa','davfadsfdsaf','dsafdsafads','ewfeq2fqwefweqrfwef','dsfas','fasdfsad','fdasfdas','dfasfasfd',1,'dsaffwerfewf','regergervger','gregergewrg','1111-01-01',0,'sadavsdvedv','fasfergere','erfvbbver','1111-01-01',0,'adsfsdvad','1111-01-01','1111-01-01','savdsvsva','addsaf','',0,121233232),(16,'jinbo','sadfds','wfewe','erfwerfw',1,'ewfewffqw','ewqfwefew','1111-11-01','dsafdsfa','davfadsfdsaf','dsafdsafads','ewfeq2fqwefweqrfwef','dsfas','fasdfsad','fdasfdas','dfasfasfd',1,'dsaffwerfewf.!@#$%^&*()fdgdfgsdfg','regergervger','gregergewrg','1111-01-01',0,'sadavsdvedv','fasfergere','erfvbbver','1111-01-01',0,'adsfsdvad','1111-01-01','1111-01-01','savdsvsva','addsaf','',0,121233232),(17,'dfasfas','dfsfadsfds','sadfsadf','dsfdsaf',1,'fdsfasdf','fadsfasf','1111-01-01','dfasdf','fdsafads','fdsfaf','dfasdfasdfdsa','sfdasfsadf','fadsfsdaf','adsfdsf','sdfasdfsadf',0,'fasfasd','fdasfadsf','fdsfads','1111-01-01',0,'fadsfdadsf','dsfafdas','fsdafsadf','1111-01-01',1,'dfasdfasf','1111-01-01','1111-01-01','sadfdsaf','dfdafds','fdsafsadfdsd',1,121231232),(18,'dsfdasf','dsfasdf','dfasfdas','fadsfdasf',1,'dsfasdfdasf','dsfdasfdasfdas','1111-01-01','feewfewf','fewfewf','efewfew','fewafaewf','dfadsf','fdasfdas','dsfadsfds','dsfadsfdas',0,'fasdfdasf','dsafdsfdasf','fdasfdasfds','1111-01-01',1,'dsfdasfads','fdsfdasfasd','dsafdasfdasf','1111-01-01',1,'dasfdasfdas','1111-01-01','1111-01-01','fdsfdasfdasgvf','cxvdzvdfv','vxczvxczvxczvxv',1,134324235);
 /*!40000 ALTER TABLE `ttrf` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -82,4 +80,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-02-23 22:20:23
+-- Dump completed on 2020-02-27 15:50:23
