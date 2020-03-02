@@ -145,7 +145,6 @@ body {
   line-height: 1.8;
   color: #fff;
   background-color: #000080;
-/*  background-image: url("../images/body-bg.jpg");*/
   background-repeat: repeat-y;
   background-size: cover;
   -moz-background-size: cover;
@@ -174,6 +173,21 @@ body {
   -ms-border-radius: 10px;
   padding-bottom: 20px;
 }
+
+.upload-button {
+  width: 60px;
+  height: 35px;
+  margin-top: 10px;
+  background-color: #E9ECEF;
+  border: 1px solid #E0E0E0;
+  color: #585858;
+  text-align: center;
+  border-radius: 10%;
+  font-size: 13px;
+}
+
+.index-form {
+  padding: 50px 60px 70px 60px; }
 
 .TTR-form {
   padding: 50px 60px 70px 60px; }
@@ -241,8 +255,13 @@ input[type=checkbox]:not(old):checked + label > span:before {
 .term-service {
   color: #222; }
 
-.submit {
-  width: 80px;
+.form-button {
+  float:right;
+  display: inline-block;
+  margin-top: 10px;
+  margin-left: 20px;
+
+  width: auto;
   background: #4966b1;
   color: #fff;
   text-decoration: none;
@@ -260,29 +279,18 @@ input[type=checkbox]:not(old):checked + label > span:before {
   -webkit-box-shadow: 0px 1px 15px 0px rgba(73, 102, 177, 0.7);
   -o-box-shadow: 0px 1px 15px 0px rgba(73, 102, 177, 0.7);
   -ms-box-shadow: 0px 1px 15px 0px rgba(73, 102, 177, 0.7); }
-  .submit:hover {
+  .form-button:hover {
     background: #3a518d; }
 
-button.submit {
-  width: auto;
-  background: #4966b1;
-  color: #fff;
-  padding: 16px 17px;
-  font-size: 13px;
-  border: none;
-  border-radius: 5px;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  -o-border-radius: 5px;
-  -ms-border-radius: 5px;
-  cursor: pointer;
-  box-shadow: 0px 1px 15px 0px rgba(73, 102, 177, 0.7);
-  -moz-box-shadow: 0px 1px 15px 0px rgba(73, 102, 177, 0.7);
-  -webkit-box-shadow: 0px 1px 15px 0px rgba(73, 102, 177, 0.7);
-  -o-box-shadow: 0px 1px 15px 0px rgba(73, 102, 177, 0.7);
-  -ms-box-shadow: 0px 1px 15px 0px rgba(73, 102, 177, 0.7); }
-  .submit:hover {
-    background: #3a518d; }
+input:disabled {
+  color: #a8a8a8;
+}
+
+input:disabled.signature {
+  background: #FFFFFF;
+  border:2px solid #ebebeb;
+  height: 70px;
+}
 
 ul {
   background: 0 0;
@@ -362,13 +370,6 @@ textarea
 
 #hour_appointment {
   z-index: 9; }
-
-#button_left, #button_right {
-  float:right;
-  display: inline-block;
-  margin-top: 10px;
-  margin-right: 20px;
-}
 
 @media screen and (max-width: 1024px) {
   .container {
