@@ -1,9 +1,17 @@
-from app import app, UPLOAD_FOLDER
+from app import app
 from flask import flash, request, jsonify, render_template, abort
 from db_config import DB_CONN_STR
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from schema import ttrf
+
+@app.route('/')
+def index():
+	return render_template('index.html')
+
+@app.route('/form')
+def form():
+	return render_template('form.html')
 
 # Add user
 @app.route('/add', methods=['POST'])

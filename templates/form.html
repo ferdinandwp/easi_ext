@@ -7,15 +7,15 @@
     <title>Technology Transfer Request form</title>
 
     <!-- Font Icon -->
-    <link rel="stylesheet" href="../fonts/material-icon/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" href="{{url_for('static', filename='fonts/material-icon/css/material-design-iconic-font.min.css')}}">
 
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <script src="../js/jquery.min.js"></script>
-    <script src="../js/popper.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
+    <script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/popper.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
 
     <!-- Main css -->
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
 </head>
 <body>
 
@@ -144,14 +144,15 @@
                 </div>
                 <input class="form-button" type="submit" value="Submit" form="TTR-form">
                 <button class="form-button" type="button" onclick="printPage()">Print/Save</button>
-                <input class="form-button" type="button" value="Back" onclick="location.href='../index.html'" >
+                <input class="form-button" type="button" value="Back" onclick="location.href='index.html'" >
             </form>
         </div>
     </div>
 
     <!-- JS -->
-    <script src="../vendor/jquery/jquery.min.js"></script>
-    <script src="../js/main.js"></script>
+    {% block body %}
+    <script src="{{url_for('static', filename='vendor/jquery/jquery.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/main.js')}}"></script>
     <script type="text/javascript">
         function disableInputBox(is_final_dst, bool_disable, ...element_ids){
             var selectedValue = is_final_dst.options[is_final_dst.selectedIndex].value;
@@ -190,5 +191,6 @@
           window.print();
         }
     </script>
+    {% endblock %}
 </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 </html>

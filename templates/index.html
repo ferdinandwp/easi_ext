@@ -7,10 +7,13 @@
     <title>Technology Transfer Request form</title>
 
     <!-- Font Icon -->
-    <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='fonts/material-icon/css/material-design-iconic-font.min.css') }}">
 
     <!-- Main css -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/style.css') }}">
+
+    <!-- prevent favicon.ico 404 error on server -->
+    <link rel="icon" href="data:;base64,=">
 </head>
 <body>
 
@@ -54,7 +57,7 @@
                     </h4>
                 </div>
                 <div id="button_to_form" class="form-submit">
-                    <input class="form-button" type="button" value="Confirm" onclick="location.href='pages/form.html'">
+                    <input class="form-button" type="button" value="Confirm" onclick="location.href='/form'">
                 </div>
             </form>
         </div>
@@ -62,7 +65,6 @@
     </div>
 
     <!-- JS -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="js/main.js"></script>
+    {% block body %}{% endblock %}
 </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 </html>
