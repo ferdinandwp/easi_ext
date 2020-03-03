@@ -1,28 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Technology Transfer Request form</title>
+{% extends 'base.html' %}
 
-    <!-- Font Icon -->
-    <link rel="stylesheet" href="{{url_for('static', filename='fonts/material-icon/css/material-design-iconic-font.min.css')}}">
+{% block head %}
+<title>Technology Transfer Request form</title>
+<script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
+<script src="{{url_for('static', filename='js/popper.min.js')}}"></script>
+<script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
+{% endblock %}
 
-    <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
-    <script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
-    <script src="{{url_for('static', filename='js/popper.min.js')}}"></script>
-    <script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
-
-    <!-- Main css -->
-    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
-</head>
-<body>
-
+{% block body %}
     <div class="main">
-
         <div class="container">
-            <form action="http://localhost:5000/add" method="POST" class="TTR-form" target="_blank" id="TTR-form" enctype="multipart/form-data">
+            <form action="http://localhost:5000/add" method="POST" class="TTR-form" id="ttrf" enctype="multipart/form-data">
                 <h2>Technology Transfer Request form</h2>
                 <div class="form-group-1">
                     <h3>Section 1: Basic information</h3>
@@ -135,22 +123,27 @@
                     <h4>6.7 Record Number</h4>
                     <input type="number" max="999999999" name="record_num" id="record_num" placeholder="2099CCCCC" oninput="this.value=this.value.slice(0,this.maxLength)" maxlength="9" required>
                 </div>
+                
                 <div class="form-group-2">
                     <h3>Section 7: Attachement</h3>
-                    <div class="custom-file mb-3">
-                        <input type="file" class="custom-file-input" id="uploaded_file" name="uploaded_file">
-                        <label class="custom-file-label" for="customFile">Choose file</label>
-                    </div>
+                        <div class="custom-file mb-3">
+                            <input type="file" class="custom-file-input" id="file" name="file" onchange="ValidateFile(this)">
+                            <label class="custom-file-label" for="customFile">Choose file</label>
+                        </div>
                 </div>
-                <input class="form-button" type="submit" value="Submit" form="TTR-form">
-                <button class="form-button" type="button" onclick="printPage()">Print/Save</button>
-                <input class="form-button" type="button" value="Back" onclick="location.href='index.html'" >
+
+                <div class="button-div">
+                    <input class="form-button" type="submit" value="Submit" form="ttrf">
+                    <button class="form-button" type="button" onclick="printPage()">Print/Save</button>
+                    <input class="form-button" type="button" value="Back" onclick="location.href='/'" >
+                </div>
             </form>
+            
+            
         </div>
     </div>
 
     <!-- JS -->
-    {% block body %}
     <script src="{{url_for('static', filename='vendor/jquery/jquery.min.js')}}"></script>
     <script src="{{url_for('static', filename='js/main.js')}}"></script>
     <script type="text/javascript">
@@ -191,6 +184,20 @@
           window.print();
         }
     </script>
-    {% endblock %}
-</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
-</html>
+    <script>
+        function ValidateFile(file) {
+            var FileSize = file.files[0].size / 1024 / 1024; // in MB
+            var FileType = file.files[0].name.split('.').pop();
+            if (FileSize > 16) {
+                alert('File size exceeds 16 MB');
+                file.value = null;
+            } 
+            else if (FileType != 'xlsx' && FileType != 'xlsm' && FileType != 'xls' && FileType != 'csv' && FileType != 'pdf') {
+                alert('The allowed file types are xlsx, xlsm, xls, csv, pdf');
+                file.value = null;
+            }
+            else {
+            }
+        }
+    </script>
+{% endblock %}

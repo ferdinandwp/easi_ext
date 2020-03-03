@@ -5,11 +5,6 @@ from flask import request
 
 Base = declarative_base()
 
-ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
-
-def allowed_file(filename):
-	return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
 class ttrf(Base):
     __tablename__ = 'ttrf'
     
@@ -47,7 +42,6 @@ class ttrf(Base):
     exported_by = Column(String)
     export_is_completed = Column(Boolean)
     record_num = Column(Integer)
-    uploaded_file = Column(BLOB)
     
     def __str__(self):
         return "tech_owner: %s, owner_contact: %s, data_recipient: %s, recipient_location: %s, is_final_dst: %s, final_dst: %s," \
@@ -55,13 +49,13 @@ class ttrf(Base):
             "eccn: %s, usml: %s, cg: %s, sme_decision: %s, sme_reason: %s, sme_name: %s, sme_decision_date: %s," \
             "ecm_decision: %s, ecm_reason: %s, ecm_name: %s, ecm_decision_date: %s, ecm_license_req: %s, ecm_license_no: %s," \
             "ecm_license_expiry_date: %s, date_ini_export: %s, export_recipient: %s, method_transfer: %s, exported_by: %s, export_is_completed: %s," \
-            "record_num: %s, uploaded_file: %s" % \
+            "record_num: %s" % \
         (self.tech_owner, self.owner_contact, self.data_recipient, self.recipient_location, self.is_final_dst, self.final_dst, \
         self.export_requester, self.date_req, self.method_export, self.purpose_export, self.ip_owner, self.tech_describe, self.ecl, \
         self.eccn, self.usml, self.cg, self.sme_decision, self.sme_reason, self.sme_name, self.sme_decision_date, \
         self.ecm_decision, self.ecm_reason, self.ecm_name, self.ecm_decision_date, self.ecm_license_req, self.ecm_license_no, \
         self.ecm_license_expiry_date, self.date_ini_export, self.export_recipient, self.method_transfer, self.exported_by, self.export_is_completed, \
-        self.record_num, self.uploaded_file)
+        self.record_num)
 
     def serialize(self):
         return {
@@ -97,12 +91,10 @@ class ttrf(Base):
             'method_transfer' : self.method_transfer,
             'exported_by' : self.exported_by,
             'export_is_completed' : self.export_is_completed,
-            'record_num' : self.record_num,
-            'uploaded_file' : self.uploaded_file
+            'record_num' : self.record_num
         }
 
     def StringToSqlType(self):
-        result = True
 
         self.is_final_dst = eval(self.is_final_dst)
         self.sme_decision = eval(self.sme_decision)
@@ -122,12 +114,3 @@ class ttrf(Base):
             self.date_ini_export = datetime.strptime(self.date_ini_export, '%Y-%m-%d')
 
         self.record_num = int(self.record_num)
-
-        file = request.files['uploaded_file']
-        if file:
-            if allowed_file(file.filename):
-                self.uploaded_file = file.read()
-            else:
-                result = False
-
-        return result

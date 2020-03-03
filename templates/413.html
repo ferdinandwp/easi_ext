@@ -1,8 +1,15 @@
-<!DOCTYPE html>
-<html>
-<body>
+{% extends 'base.html' %}
 
-<h1>413 Request entity too large</h1>
-<p>Uploaded file should be less than 16M</p>
-</body>
-</html>
+{% block head %}
+<title>404 Page not found</title>
+{% endblock %}
+
+{% block body %}
+<div class="main">
+    <div class="container">
+        <img src="{{url_for('static', filename='images/failed.gif')}}" alt="Trulli" class="img-center">
+        <h2 class="text-center">413 Request entity too large</h2>
+        <h2 class="text-center">Uploaded file should be less than 16M</h2>
+    </div>
+</div>
+{% endblock %}

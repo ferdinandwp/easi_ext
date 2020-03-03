@@ -1,10 +1,15 @@
-<!DOCTYPE html>
-<html>
-<body>
+{% extends 'base.html' %}
 
-<h1>415 Unsupported Media Type</h1>
+{% block head %}
+<title>415 Unsupported Media Type</title>
+{% endblock %}
 
-<p>Allowed file types are txt, pdf, png, jpg, jpeg, gif</p>
-
-</body>
-</html>
+{% block body %}
+<div class="main">
+    <div class="container">
+        <img src="{{url_for('static', filename='images/failed.gif')}}" alt="Trulli" class="img-center">
+        <h2 class="text-center">415 Unsupported Media Type</h2>
+        <h2 class="text-center">Allowed file types are txt, pdf, png, jpg, jpeg, gif</h2>
+    </div>
+</div>
+{% endblock %}
