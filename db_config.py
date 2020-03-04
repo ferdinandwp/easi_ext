@@ -1,7 +1,7 @@
-DB_IP = "localhost"
-DB_NAME = "db_ttrf"
-DB_USER = "root"
-DB_PASS = "R@ou56206161"
+DB_IP = "10.140.9.15"
+DB_NAME = "datacentralserver"
+DB_USER = "mikeez"
+DB_PASS = "maikil"
 DB_PORT = "3306"
 
 
