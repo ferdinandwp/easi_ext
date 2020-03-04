@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>501 Server error</title>
+{% endblock %}
+
+{% block body %}
+<div class="main">
+    <div class="container">
+        <img src="{{url_for('static', filename='images/failed.gif')}}" alt="Trulli" class="img-center">
+        <h2 class="text-center">Error: {{ error }}</h2>
+    </div>
+</div>
+{% endblock %}

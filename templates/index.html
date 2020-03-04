@@ -1,21 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Technology Transfer Request form</title>
+{% extends 'base.html' %}
 
-    <!-- Font Icon -->
-    <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
+{% block head %}
+<title>Confirmation page</title>
+{% endblock %}
 
-    <!-- Main css -->
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-
+{% block body %}
     <div class="main">
-
         <div class="container">
             <form class="index-form">
                 <h2>Technology Transfer Request form</h2>
@@ -54,7 +44,7 @@
                     </h4>
                 </div>
                 <div id="button_to_form" class="form-submit">
-                    <input class="form-button" type="button" value="Confirm" onclick="location.href='pages/form.html'">
+                    <input class="form-button" type="button" value="Confirm" onclick="location.href='/form'">
                 </div>
             </form>
         </div>
@@ -62,7 +52,5 @@
     </div>
 
     <!-- JS -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="js/main.js"></script>
-</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
-</html>
+{% endblock %}
+<!-- This templates was made by Colorlib (https://colorlib.com) -->
